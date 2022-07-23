@@ -1,0 +1,244 @@
+﻿@model  Pesticides.ViewModels.SearchViewModel
+@{
+    ViewBag.Title = "خدمة البحث في الأدوية الزراعية";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/Datatables/datatables.min.js"></script>
+<link href="~/Content/DataTables/css/buttons.dataTables.css" rel="stylesheet" />
+<link href="~/Content/DataTables/css/buttons.bootstrap.css" rel="stylesheet" />
+<link href="~/Content/DataTables/css/buttons.jqueryui.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+<h4 style="color:grey !important">إختيار شروط البحث</h4>
+<hr />
+<br />
+@using (Html.BeginForm("Search", "Search"))
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.Label("نوع المبيد", new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.ListBoxFor(m => m.selectedTypes, new SelectList(Model.pesticideTypes, "PesticideTypePk", "PesticideTypeAR"),new { @class = "form-control", id = "pesticideTypeChosenId", Multiple = "multiple" })
+                @*@Html.DropDownListFor(m => m.PesticideTypefk, new SelectList(Model.pesticideTypes, "PesticideTypePk", "PesticideTypeAR"), "حدّد النوع", new { @class = "form-control", id = "pesticideTypeChosenId" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("المادة الفعّالة", new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.ListBoxFor(m => m.selectedActIngredients, new SelectList(Model.activeIngredients, "ActiveIngredientPk", "IngredientAr"), new { @class = "form-control", id = "ActiveIngChosenId", Multiple = "multiple" })
+                @*@Html.DropDownListFor(m => m.ActiveIngredientfk, new SelectList(Model.activeIngredients, "ActiveIngredientPk", "IngredientAr"), "حدّد المادة الفعّالة", new { @class = "form-control", id = "ActiveIngChosenId"})*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("المحصول", new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.ListBoxFor(m => m.selectedCrops, new SelectList(Model.crops, "CropPk", "CropNameAr"), new { @class = "form-control", id = "CropChosenId", Multiple = "multiple" })
+                @*@Html.ListBoxFor(m => m.Cropfk, new SelectList(Model.crops, "CropPk", "CropNameAr"), new { @class = "form-control", id = "CropChosenId", Multiple = "multiple" })*@
+                @*@Html.DropDownListFor(m => m.Cropfk, new SelectList(Model.crops, "CropPk", "CropNameAr"), new { @class = "form-control", id = "CropChosenId", Multiple = "multiple" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("الآفة", new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.ListBoxFor(m => m.selectedPests, new SelectList(Model.pests, "PestPk", "PestNameAr"), new { @class = "form-control", id = "PestChosenId", Multiple = "multiple" })
+                @*@Html.DropDownListFor(m => m.Pestfk, new SelectList(Model.pests, "PestPk", "PestNameAr"), "حدّد الآفة", new { @class = "form-control", id = "PestChosenId" })*@
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-warning">بحث</button>
+        @*@Html.ActionLink("حفظ في ملف", "ExportToExcel", null, new { @class = "btn btn-warning" })*@
+    </div>
+}
+<br /><br />
+<style type="text/css">
+    a.dt-button.buttons-print.exportBtn, a.dt-button.buttons-copy.exportBtn {
+        background: #f0ad4e !important;
+        border-color: #eea236 !important;
+        color: white !important;
+        margin-left: 5px !important;
+    }
+    .search-field {
+        float: right !important;
+    }
+</style>
+<table class="table table-responsive table-striped table-hover display" id="example">
+    <thead>
+        <tr style="white-space: nowrap;background-color: #404040;color:white;">
+            <th>
+                <label>نوع المبيد</label>
+            </th>
+            <th>
+                <label>المادة الفعالة</label>
+            </th>
+            <th>
+                <label>Active Ingredient</label>
+            </th>
+            <th>
+                <label>التركيبة</label>
+            </th>
+            <th>
+                <label>طريقة عمل المبيد</label>
+            </th>
+            <th>
+                <label>المحصول</label>
+            </th>
+
+            <th>
+                <label>الآفة</label>
+            </th>
+            <th>
+                <label>
+                    نسبة الاستعمال
+                    غرام أو ملل / 100 ليتر ماء
+                </label>
+
+            </th>
+            <th>
+                <label>
+                    نسبة الاستعمال
+                    غرام أو ملل / هكتار
+                </label>
+            </th>
+            <th>
+                <label>فترة الأمان (أيام)</label>
+            </th>
+            <th>
+                <label>طريقة استخدام المبيد</label>
+            </th>
+
+
+            <th>
+                <label>درجة السمية WHO</label>
+            </th>
+            <th>
+                <label>التأثير على الأسماك</label>
+            </th>
+            <th>
+                <label>التأثير على النحل</label>
+            </th>
+            <th>
+                <label>التأثير على الطيور</label>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PesticidesInfoes)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PesticideType.PesticideTypeAR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActiveIngredient.IngredientAr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActiveIngredient.IngredientEn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Formulation.FormulationDescAr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModeOfAction)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Crop.CropNameAr)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Pest.PestNameAr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RatePerLiters)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RatePerHectar)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PreharvestInterval)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModeOfUse)
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ToxicityClassWHO.ClassWHO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToxicityOnFish.ToxicityAr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToxicityOnBee.ToxicityAr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToxicityOnBird.ToxicityAr)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<br />
+<p style="color:white;padding:6px;background-color:#404040;"><strong>تاريخ آخر تحديث @ViewBag.LastModifiedDate</strong></p>
+
+<script src="~/Scripts/DataTables/pdfmake.min.js"></script>
+<script src="~/Scripts/DataTables/vfs_fonts.js"></script>
+<script src="~/Scripts/DataTables/buttons.print.js"></script>
+<script src="~/Scripts/DataTables/dataTables.buttons.js"></script>
+<script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+<script src="~/Scripts/DataTables/buttons.bootstrap.js"></script>
+<script src="~/Scripts/DataTables/buttons.jqueryui.js"></script>
+<script src="~/Scripts/DataTables/buttons.html5.js"></script>
+<script src="~/Scripts/DataTables/buttons.flash.js"></script>
+<script>
+
+    $(function () {
+        $("#pesticideTypeChosenId").chosen({
+            width: "80%",
+            placeholder_text_multiple: 'حدد نوع أو أكثر'
+        });
+        $("#ActiveIngChosenId").chosen({
+            width: "80%",
+            placeholder_text_multiple: 'حدد مادة فعالة أو أكثر'
+        });
+        $("#CropChosenId").chosen({
+            width: "80%",
+            placeholder_text_multiple: 'حدد محصول أو أكثر'
+        });
+        $("#PestChosenId").chosen({
+            width: "80%",
+            placeholder_text_multiple: 'حدد أفة أو أكثر'
+        });
+    })
+
+    $(document).ready(function () {
+        var table = $('#example').DataTable({
+            searching: false,
+            "scrollX": true,
+            dom: 'lBtip',
+            buttons: {
+                name: 'primary',
+                buttons:
+                    [
+                        { extend: 'print', text: 'طباعة', className: 'exportBtn' }
+                        //{ extend: 'copy', text: 'نسخ الجدول', className: 'exportBtn'},
+                    ]
+            },
+            language: {
+                paginate: {
+                    "first": "الصفحة الأولى",
+                    "last": "الصفحة الأخيرة",
+                    "next": "التالي",
+                    "previous": "السابق"
+                },
+                info: "عرض _START_ إلى _END_ من _TOTAL_ ",
+                lengthMenu: "عرض _MENU_ ",
+                emptyTable: "لا يوجد"
+            }
+        })
+    });
+</script>
+

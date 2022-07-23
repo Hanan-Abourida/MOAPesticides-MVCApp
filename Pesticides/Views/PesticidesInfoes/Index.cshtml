@@ -1,0 +1,211 @@
+﻿@model IEnumerable<Pesticides.Models.PesticidesInfo>
+
+@{
+    ViewBag.Title = "قاعدة البيانات";
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery_cookie.js"></script>
+<h3>قاعدة البيانات</h3>
+<br />
+
+<style>
+    #infoTableId_filter {
+    float: left;
+}
+</style>
+@using (Html.BeginForm("DeleteMultiple", "PesticidesInfoes", FormMethod.Post))
+{
+    <p style="float:left;">
+        <button type="submit" value="delete" class="btn btn-danger" onclick="return confirm('هل أنت متأكد من الحذف؟')">
+            @*<i class="fa fa-trash-o"></i>*@
+            حذف
+        </button>
+        @Html.ActionLink("إضافة", "Create", null, new { @class = "btn btn-success" })
+    </p>
+        <br /><br />
+        <table class="table table-responsive table-striped table-hover" id="infoTableId">
+            <thead>
+                <tr style="white-space: nowrap;background-color: #404040;color:white;">
+                    <th>
+                    @*<input type="checkbox" id="checkboxAll" class="custom-checkbox">*@
+                    </th>
+                    <th width="100px"></th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PesticideType.PesticideTypeAR)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ActiveIngredient.IngredientAr)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Formulation.FormulationDescAr)
+                    </th>
+                    <th>
+                        @Html.DisplayName("طريقة عمل المبيد")
+                    </th>
+                    <th>
+                        @Html.DisplayName("نسبة الإستعمال غ أو ملل / 100 ليتر ماء")
+                    </th>
+                    <th>
+                        @Html.DisplayName("نسبة الإستعمال غ أو ملل / هكتار")
+                    </th>
+                    <th>
+                        @Html.DisplayName("فترة الأمان( أيام )")
+                    </th>
+                    <th>
+                        @Html.DisplayName("طريقة إستعمال المبيد")
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Crop.CropNameAr)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Pest.PestNameAr)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ToxicityClassWHO.ClassWHO)
+                    </th>
+                    <th>
+                        @Html.DisplayName("درجة السّمية على الأسماك")
+                    </th>
+                    <th>
+                        @Html.DisplayName("درجة السّمية على النحل")
+                    </th>
+                    <th>
+                        @Html.DisplayName("درجة السّمية على الطيور")
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="pesticideInfoID" value="@item.PesticidesInfoPk" class="custom-checkbox chkCheckBoxId" />
+                        </td>
+                        <td width="100px">
+                            <a href="@Url.Action("Edit", new { id = item.PesticidesInfoPk })"><i class="fa fa-pencil" title="تعديل" style="color:seagreen;"></i> </a>
+                            <a href="@Url.Action("Details", new { id = item.PesticidesInfoPk })"><i class="fa fa-info-circle" title="تفاصيل" style="color:seagreen;"></i> </a>
+                            <a href="@Url.Action("AddToPesticide", new { id = item.PesticidesInfoPk })"><i class="fa fa-plus-circle" title="إضافة" style="color:seagreen;"></i> </a>
+                            <a href="@Url.Action("Delete", new { id = item.PesticidesInfoPk })"><i class="fa fa-trash" title="حذف" style="color:seagreen;"></i> </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PesticideType.PesticideTypeAR)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ActiveIngredient.IngredientAr)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Formulation.FormulationDescAr)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ModeOfAction)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RatePerLiters)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RatePerHectar)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PreharvestInterval)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ModeOfUse)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Crop.CropNameAr)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pest.PestNameAr)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ToxicityClassWHO.ClassWHO)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ToxicityOnFish.ToxicityAr)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ToxicityOnBee.ToxicityAr)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ToxicityOnBird.ToxicityAr)
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+        }
+
+        <script>
+
+            $(document).ready(function () {
+                var table = $('#infoTableId').DataTable(
+                    {
+                        //  deferRender: true,
+                        stateSave: true,
+                      //  searching: false,
+                        language: {
+                            paginate: {
+                                "first": "الصفحة الأولى",
+                                "last": "الصفحة الأخيرة",
+                                "next": "التالي",
+                                "previous": "السابق"
+                            },
+                            info: "عرض _START_ إلى _END_ من _TOTAL_ ",
+                            lengthMenu: "عرض _MENU_ ",
+                            emptyTable: "لا يوجد",
+                            searchPlaceholder: "كلمة البحث",
+                            search: "  بحث  "
+                        },
+                        "scrollX": true
+                    }
+                );
+
+                $('#checkBoxAll').click(function () {
+                    if ($(this).is(":checked")) {
+                        $(".chkCheckBoxId").prop("checked", true)
+                    } else {
+                        $(".chkCheckBoxId").prop("checked", false)
+                    }
+                });
+
+
+
+                //$('#infoTableId tbody').on('click', 'tr', function () {
+                //    alert('here');
+                //    var selectedRow = table.row(this).data();
+                //    $.cookie('selectedRow', table.row(this).index());
+                //    alert('here::: ' + selectedRow);
+                //});
+
+                //function showRowLastRow(table) {
+                //   var myRow = table.row($.cookie('selectedRow'));
+
+                //   myRow.node().classList.add('highlight');
+                //   // row.node().classList.add('highlight');
+                //}
+
+                // showRowLastRow(table);
+
+                //    function showRowLastRow(table) {
+
+                //        var rowsCount = table.data().length;
+                //        var rowsPerPage = table.page.len();
+                //        var row = table.row(rowsCount-1);
+                //        var selectedPage = Math.floor((rowsCount-1) / rowsPerPage);
+
+                //        if (rowsCount > rowsPerPage) {
+                //            table.page(selectedPage).draw(false);
+                //        }
+
+                //        row.node().classList.add('highlight');
+                //    }
+
+                //showRowLastRow(table);
+            });
+        </script>

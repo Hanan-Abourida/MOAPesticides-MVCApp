@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Pesticides.Models.Crop>
+
+@{
+    ViewBag.Title = "المحاصيل";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <h3>لائحة المحاصيل</h3>
+<br/>
+<p style="float:left;">
+    @Html.ActionLink("إضافة محصول", "Create", null, new { @class = "btn btn-success" })
+</p>
+<table class="table" id="cropsTableId">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CropNameAr)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CropNameAr)
+                </td>
+                <td>
+                    @Html.ActionLink("تعديل", "Edit", new { id = item.CropPk }) |
+                    @*@Html.ActionLink("Details", "Details", new { id = item.CropPk }) |*@
+                    @Html.ActionLink("حذف", "Delete", new { id = item.CropPk })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<script>
+
+    $(document).ready(function () {
+        $('#cropsTableId').DataTable(
+            {
+                searching: false,
+                language : {
+                    "lengthMenu": "عرض _MENU_"
+    }
+            }
+        );
+    });
+</script>

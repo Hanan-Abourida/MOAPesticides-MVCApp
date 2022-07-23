@@ -1,0 +1,32 @@
+﻿@model Pesticides.Models.ToxicityClassWHO
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <h3>هل أنت متأكد من الحذف؟</h3>
+<div>
+    <h4>درجة السّميّة WHO </h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ClassWHO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClassWHO)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+    <input type="submit" value="حذف" class="btn btn-default" /> |
+    @Html.ActionLink("اللائحة", "Index")
+</div>
+    }
+</div>

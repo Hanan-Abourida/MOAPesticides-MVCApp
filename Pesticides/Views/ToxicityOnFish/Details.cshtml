@@ -1,0 +1,27 @@
+﻿@model Pesticides.Models.ToxicityOnFish
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ToxicityOnFish</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ToxicityAr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToxicityAr)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ToxicityFishPk }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

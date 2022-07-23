@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Pesticides.Models.ToxicityClassWHO>
+
+@{
+    ViewBag.Title = "ToxicityClassWHO";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<h3>درجة السّميّة</h3>
+<br />
+<p style="float:left;">
+    @Html.ActionLink("إضافة", "Create", null, new { @class = "btn btn-success" })
+</p>
+<table class="table" id="toxTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassWHO)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClassWHO)
+                </td>
+                <td>
+                    @Html.ActionLink("تعديل", "Edit", new { id = item.ClassWHOPK }) |
+                    @Html.ActionLink("حذف", "Delete", new { id = item.ClassWHOPK })
+                </td>
+            </tr>
+        }
+
+</table>
+<script>
+
+    $(document).ready(function () {
+        $('#toxTable').DataTable(
+            {
+                searching: false,
+                language: {
+                    "lengthMenu": "عرض _MENU_"
+                }
+            }
+        );
+    });
+</script>

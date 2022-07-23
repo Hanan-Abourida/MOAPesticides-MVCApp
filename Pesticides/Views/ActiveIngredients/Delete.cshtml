@@ -1,0 +1,39 @@
+﻿@model Pesticides.Models.ActiveIngredient
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>هل أنت متأكد من الحذف؟</h3>
+<div>
+    <h4>المادة الفعالة</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IngredientAr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IngredientAr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IngredientEn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IngredientEn)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-default" /> |
+            @Html.ActionLink("اللائحة", "Index")
+        </div>
+    }
+</div>

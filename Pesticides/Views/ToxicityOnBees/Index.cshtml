@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Pesticides.Models.ToxicityOnBee>
+
+@{
+    ViewBag.Title = "التأثير على النحل";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<h3>التأثير على النحل</h3>
+<br />
+<p style="float:left;">
+    @Html.ActionLink("إضافة", "Create", null, new { @class = "btn btn-success" })
+</p>
+<table class="table" id="beesTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ToxicityAr)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToxicityAr)
+                </td>
+                <td>
+                    @Html.ActionLink("تعديل", "Edit", new { id = item.ToxicityBeePk }) |
+                    @Html.ActionLink("حذف", "Delete", new { id = item.ToxicityBeePk })
+                </td>
+            </tr>
+        }
+
+</table>
+<script>
+
+    $(document).ready(function () {
+        $('#beesTable').DataTable(
+            {
+                searching: false,
+                language: {
+                    "lengthMenu": "عرض _MENU_"
+                }
+            }
+        );
+    });
+</script>

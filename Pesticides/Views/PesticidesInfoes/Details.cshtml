@@ -1,0 +1,130 @@
+﻿@model Pesticides.Models.PesticidesInfo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>تفاصيل</h2>
+
+<div>
+    <h4>الدواء الزراعي</h4>
+    <hr />
+    <dl class="dl-horizontal customList">
+        <dt style="background-color: #404040;color:white;">
+            @Html.Label("المادّة الفعالة")
+        </dt>
+
+        <dd style="background-color: #404040;color:white;">
+            @Html.DisplayFor(model => model.ActiveIngredient.IngredientAr)
+        </dd>
+
+        <dt>
+            @Html.Label("طريقة عمل المبيد")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModeOfAction)
+        </dd>
+
+        <dt>
+            @Html.Label("نسبة الإستعمال غ أو ملل / 100 ليتر ماء")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RatePerLiters)
+        </dd>
+
+        <dt>
+            @Html.Label("نسبة الإستعمال غ أو ملل / هكتار")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RatePerHectar)
+        </dd>
+
+        <dt>
+            @Html.Label("فترة الأمان(الأيام )")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PreharvestInterval)
+        </dd>
+
+        <dt>
+            @Html.Label("طريقة إستعمال المبيد")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModeOfUse)
+        </dd>
+
+        <dt>
+            @Html.Label("المحصول")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Crop.CropNameAr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Formulation.FormulationDescAr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Formulation.FormulationDescAr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pest.PestNameAr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pest.PestNameAr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ToxicityClassWHO.ClassWHO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToxicityClassWHO.ClassWHO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PesticideType.PesticideTypeAR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PesticideType.PesticideTypeAR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ToxicityOnFish.ToxicityAr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToxicityOnFish.ToxicityAr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ToxicityOnBee.ToxicityAr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToxicityOnBee.ToxicityAr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ToxicityOnBird.ToxicityAr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToxicityOnBird.ToxicityAr)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("تعديل", "Edit", new { id = Model.PesticidesInfoPk }) |
+    @Html.ActionLink("اللائحة", "Index")
+</p>

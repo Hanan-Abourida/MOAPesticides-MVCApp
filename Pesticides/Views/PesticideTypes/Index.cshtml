@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Pesticides.Models.PesticideType>
+
+@{
+    ViewBag.Title = "أنواع المبيد";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<h3>أنواع المبيد</h3>
+
+<br />
+<p style="float:left;">
+    @Html.ActionLink("إضافة نوع مبيد", "Create", null, new { @class = "btn btn-success" })
+</p>
+<table class="table" id="pesticideTypeTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PesticideTypeAR)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PesticideTypeAR)
+                </td>
+                <td>
+                    @Html.ActionLink("تعديل", "Edit", new { id = item.PesticideTypePk }) |
+                    @Html.ActionLink("حذف", "Delete", new { id = item.PesticideTypePk })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+
+    $(document).ready(function () {
+        $('#pesticideTypeTable').DataTable(
+            {
+                searching: false,
+                language: {
+                    "lengthMenu": "عرض _MENU_"
+                }
+            }
+        );
+    });
+</script>

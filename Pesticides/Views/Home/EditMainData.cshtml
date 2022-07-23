@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "EditMainData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<h3>بيانات الأدوية الزراعية</h3>
+<hr />
+<ul class="EditMainList">
+    <li>@Html.ActionLink("الأدوية الزراعية", "Index", "PesticidesInfoes")</li>
+
+    <li>@Html.ActionLink("أنواع المبيد", "Index", "PesticideTypes")</li>
+    <li>@Html.ActionLink("المواد الفعالة", "Index", "ActiveIngredients")</li>
+    <li>@Html.ActionLink("المحاصيل", "Index", "Crops")</li>
+    <li>@Html.ActionLink("الآفات", "Index", "Pests")</li>
+    <li>@Html.ActionLink("التركيبات", "Index", "Formulations")</li>
+    <li>@Html.ActionLink("درجات السمية WHO", "Index", "ToxicityClassWHOes")</li>
+    <li>@Html.ActionLink("درجات التأثير على النحل", "Index", "ToxicityOnBees")</li>
+    <li>@Html.ActionLink("درجات التأثير على الطيور", "Index", "ToxicityOnBirds")</li>
+    <li>@Html.ActionLink("درجات التأثير على الأسماك", "Index", "ToxicityOnFish")</li>
+</ul>
+
+@if (User.Identity.Name.Equals("ITAdmin@agriculture.gov.lb"))
+{
+    <p>
+        @Html.ActionLink("مستخدم جديد", "Register","Account",null,null)
+    </p>
+}
+

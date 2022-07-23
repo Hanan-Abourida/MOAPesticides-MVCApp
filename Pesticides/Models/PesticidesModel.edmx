@@ -1,0 +1,684 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PesticidesDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ActiveIngredient">
+          <Key>
+            <PropertyRef Name="ActiveIngredientPk" />
+          </Key>
+          <Property Name="ActiveIngredientPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IngredientAr" Type="nvarchar(max)" />
+          <Property Name="IngredientEn" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Crop">
+          <Key>
+            <PropertyRef Name="CropPk" />
+          </Key>
+          <Property Name="CropPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CropNameAr" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Formulation">
+          <Key>
+            <PropertyRef Name="FormulationPk" />
+          </Key>
+          <Property Name="FormulationPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormulationDescAr" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Pest">
+          <Key>
+            <PropertyRef Name="PestPk" />
+          </Key>
+          <Property Name="PestPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PestNameAr" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PesticidesInfo">
+          <Key>
+            <PropertyRef Name="PesticidesInfoPk" />
+          </Key>
+          <Property Name="PesticidesInfoPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fkPesticideType" Type="int" />
+          <Property Name="fkActiveIngredient" Type="int" />
+          <Property Name="fkFormulation" Type="int" />
+          <Property Name="fkToxicityFish" Type="int" />
+          <Property Name="fkToxicityBees" Type="int" />
+          <Property Name="fkToxicityBirds" Type="int" />
+          <Property Name="fkClassWHO" Type="int" />
+          <Property Name="ModeOfAction" Type="nvarchar(max)" />
+          <Property Name="fkCrop" Type="int" />
+          <Property Name="fkPest" Type="int" />
+          <Property Name="RatePerLiters" Type="nvarchar(max)" />
+          <Property Name="RatePerHectar" Type="nvarchar(max)" />
+          <Property Name="PreharvestInterval" Type="int" />
+          <Property Name="ModeOfUse" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PesticideType">
+          <Key>
+            <PropertyRef Name="PesticideTypePk" />
+          </Key>
+          <Property Name="PesticideTypePk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PesticideTypeAR" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ToxicityClassWHO">
+          <Key>
+            <PropertyRef Name="ClassWHOPK" />
+          </Key>
+          <Property Name="ClassWHOPK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassWHO" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="ToxicityOnBees">
+          <Key>
+            <PropertyRef Name="ToxicityBeePk" />
+          </Key>
+          <Property Name="ToxicityBeePk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ToxicityAr" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ToxicityOnBirds">
+          <Key>
+            <PropertyRef Name="ToxicityBirdPk" />
+          </Key>
+          <Property Name="ToxicityBirdPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ToxicityAr" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ToxicityOnFish">
+          <Key>
+            <PropertyRef Name="ToxicityFishPk" />
+          </Key>
+          <Property Name="ToxicityFishPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ToxicityAr" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Pesticide__fkAct__45F365D3">
+          <End Role="ActiveIngredient" Type="Self.ActiveIngredient" Multiplicity="0..1" />
+          <End Role="PesticidesInfo" Type="Self.PesticidesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActiveIngredient">
+              <PropertyRef Name="ActiveIngredientPk" />
+            </Principal>
+            <Dependent Role="PesticidesInfo">
+              <PropertyRef Name="fkActiveIngredient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pesticide__fkCla__4AB81AF0">
+          <End Role="ToxicityClassWHO" Type="Self.ToxicityClassWHO" Multiplicity="0..1" />
+          <End Role="PesticidesInfo" Type="Self.PesticidesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToxicityClassWHO">
+              <PropertyRef Name="ClassWHOPK" />
+            </Principal>
+            <Dependent Role="PesticidesInfo">
+              <PropertyRef Name="fkClassWHO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pesticide__fkCro__4BAC3F29">
+          <End Role="Crop" Type="Self.Crop" Multiplicity="0..1" />
+          <End Role="PesticidesInfo" Type="Self.PesticidesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Crop">
+              <PropertyRef Name="CropPk" />
+            </Principal>
+            <Dependent Role="PesticidesInfo">
+              <PropertyRef Name="fkCrop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pesticide__fkFor__46E78A0C">
+          <End Role="Formulation" Type="Self.Formulation" Multiplicity="0..1" />
+          <End Role="PesticidesInfo" Type="Self.PesticidesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formulation">
+              <PropertyRef Name="FormulationPk" />
+            </Principal>
+            <Dependent Role="PesticidesInfo">
+              <PropertyRef Name="fkFormulation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pesticide__fkPes__44FF419A">
+          <End Role="PesticideType" Type="Self.PesticideType" Multiplicity="0..1" />
+          <End Role="PesticidesInfo" Type="Self.PesticidesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PesticideType">
+              <PropertyRef Name="PesticideTypePk" />
+            </Principal>
+            <Dependent Role="PesticidesInfo">
+              <PropertyRef Name="fkPesticideType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pesticide__fkPes__4CA06362">
+          <End Role="Pest" Type="Self.Pest" Multiplicity="0..1" />
+          <End Role="PesticidesInfo" Type="Self.PesticidesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pest">
+              <PropertyRef Name="PestPk" />
+            </Principal>
+            <Dependent Role="PesticidesInfo">
+              <PropertyRef Name="fkPest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pesticide__fkTox__47DBAE45">
+          <End Role="ToxicityOnFish" Type="Self.ToxicityOnFish" Multiplicity="0..1" />
+          <End Role="PesticidesInfo" Type="Self.PesticidesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToxicityOnFish">
+              <PropertyRef Name="ToxicityFishPk" />
+            </Principal>
+            <Dependent Role="PesticidesInfo">
+              <PropertyRef Name="fkToxicityFish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pesticide__fkTox__48CFD27E">
+          <End Role="ToxicityOnBees" Type="Self.ToxicityOnBees" Multiplicity="0..1" />
+          <End Role="PesticidesInfo" Type="Self.PesticidesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToxicityOnBees">
+              <PropertyRef Name="ToxicityBeePk" />
+            </Principal>
+            <Dependent Role="PesticidesInfo">
+              <PropertyRef Name="fkToxicityBees" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pesticide__fkTox__49C3F6B7">
+          <End Role="ToxicityOnBirds" Type="Self.ToxicityOnBirds" Multiplicity="0..1" />
+          <End Role="PesticidesInfo" Type="Self.PesticidesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToxicityOnBirds">
+              <PropertyRef Name="ToxicityBirdPk" />
+            </Principal>
+            <Dependent Role="PesticidesInfo">
+              <PropertyRef Name="fkToxicityBirds" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SearchPesticides" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PesticideType" Type="int" Mode="In" />
+          <Parameter Name="ActiveIngredient" Type="int" Mode="In" />
+          <Parameter Name="Crop" Type="int" Mode="In" />
+          <Parameter Name="Pest" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="PesticidesDBModelStoreContainer">
+          <EntitySet Name="ActiveIngredient" EntityType="Self.ActiveIngredient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Crop" EntityType="Self.Crop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Formulation" EntityType="Self.Formulation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pest" EntityType="Self.Pest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PesticidesInfo" EntityType="Self.PesticidesInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PesticideType" EntityType="Self.PesticideType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ToxicityClassWHO" EntityType="Self.ToxicityClassWHO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ToxicityOnBees" EntityType="Self.ToxicityOnBees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ToxicityOnBirds" EntityType="Self.ToxicityOnBirds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ToxicityOnFish" EntityType="Self.ToxicityOnFish" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Pesticide__fkAct__45F365D3" Association="Self.FK__Pesticide__fkAct__45F365D3">
+            <End Role="ActiveIngredient" EntitySet="ActiveIngredient" />
+            <End Role="PesticidesInfo" EntitySet="PesticidesInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pesticide__fkCla__4AB81AF0" Association="Self.FK__Pesticide__fkCla__4AB81AF0">
+            <End Role="ToxicityClassWHO" EntitySet="ToxicityClassWHO" />
+            <End Role="PesticidesInfo" EntitySet="PesticidesInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pesticide__fkCro__4BAC3F29" Association="Self.FK__Pesticide__fkCro__4BAC3F29">
+            <End Role="Crop" EntitySet="Crop" />
+            <End Role="PesticidesInfo" EntitySet="PesticidesInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pesticide__fkFor__46E78A0C" Association="Self.FK__Pesticide__fkFor__46E78A0C">
+            <End Role="Formulation" EntitySet="Formulation" />
+            <End Role="PesticidesInfo" EntitySet="PesticidesInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pesticide__fkPes__44FF419A" Association="Self.FK__Pesticide__fkPes__44FF419A">
+            <End Role="PesticideType" EntitySet="PesticideType" />
+            <End Role="PesticidesInfo" EntitySet="PesticidesInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pesticide__fkPes__4CA06362" Association="Self.FK__Pesticide__fkPes__4CA06362">
+            <End Role="Pest" EntitySet="Pest" />
+            <End Role="PesticidesInfo" EntitySet="PesticidesInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pesticide__fkTox__47DBAE45" Association="Self.FK__Pesticide__fkTox__47DBAE45">
+            <End Role="ToxicityOnFish" EntitySet="ToxicityOnFish" />
+            <End Role="PesticidesInfo" EntitySet="PesticidesInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pesticide__fkTox__48CFD27E" Association="Self.FK__Pesticide__fkTox__48CFD27E">
+            <End Role="ToxicityOnBees" EntitySet="ToxicityOnBees" />
+            <End Role="PesticidesInfo" EntitySet="PesticidesInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pesticide__fkTox__49C3F6B7" Association="Self.FK__Pesticide__fkTox__49C3F6B7">
+            <End Role="ToxicityOnBirds" EntitySet="ToxicityOnBirds" />
+            <End Role="PesticidesInfo" EntitySet="PesticidesInfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PesticidesDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ActiveIngredient">
+          <Key>
+            <PropertyRef Name="ActiveIngredientPk" />
+          </Key>
+          <Property Name="ActiveIngredientPk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IngredientAr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IngredientEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PesticidesInfoes" Relationship="Self.FK__Pesticide__fkAct__45F365D3" FromRole="ActiveIngredient" ToRole="PesticidesInfo" />
+        </EntityType>
+        <EntityType Name="Crop">
+          <Key>
+            <PropertyRef Name="CropPk" />
+          </Key>
+          <Property Name="CropPk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CropNameAr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PesticidesInfoes" Relationship="Self.FK__Pesticide__fkCro__4BAC3F29" FromRole="Crop" ToRole="PesticidesInfo" />
+        </EntityType>
+        <EntityType Name="Formulation">
+          <Key>
+            <PropertyRef Name="FormulationPk" />
+          </Key>
+          <Property Name="FormulationPk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormulationDescAr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PesticidesInfoes" Relationship="Self.FK__Pesticide__fkFor__46E78A0C" FromRole="Formulation" ToRole="PesticidesInfo" />
+        </EntityType>
+        <EntityType Name="Pest">
+          <Key>
+            <PropertyRef Name="PestPk" />
+          </Key>
+          <Property Name="PestPk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PestNameAr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PesticidesInfoes" Relationship="Self.FK__Pesticide__fkPes__4CA06362" FromRole="Pest" ToRole="PesticidesInfo" />
+        </EntityType>
+        <EntityType Name="PesticidesInfo">
+          <Key>
+            <PropertyRef Name="PesticidesInfoPk" />
+          </Key>
+          <Property Name="PesticidesInfoPk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fkPesticideType" Type="Int32" />
+          <Property Name="fkActiveIngredient" Type="Int32" />
+          <Property Name="fkFormulation" Type="Int32" />
+          <Property Name="fkToxicityFish" Type="Int32" />
+          <Property Name="fkToxicityBees" Type="Int32" />
+          <Property Name="fkToxicityBirds" Type="Int32" />
+          <Property Name="fkClassWHO" Type="Int32" />
+          <Property Name="ModeOfAction" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fkCrop" Type="Int32" />
+          <Property Name="fkPest" Type="Int32" />
+          <Property Name="RatePerLiters" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RatePerHectar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PreharvestInterval" Type="Int32" />
+          <Property Name="ModeOfUse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ActiveIngredient" Relationship="Self.FK__Pesticide__fkAct__45F365D3" FromRole="PesticidesInfo" ToRole="ActiveIngredient" />
+          <NavigationProperty Name="Crop" Relationship="Self.FK__Pesticide__fkCro__4BAC3F29" FromRole="PesticidesInfo" ToRole="Crop" />
+          <NavigationProperty Name="Formulation" Relationship="Self.FK__Pesticide__fkFor__46E78A0C" FromRole="PesticidesInfo" ToRole="Formulation" />
+          <NavigationProperty Name="Pest" Relationship="Self.FK__Pesticide__fkPes__4CA06362" FromRole="PesticidesInfo" ToRole="Pest" />
+          <NavigationProperty Name="ToxicityClassWHO" Relationship="Self.FK__Pesticide__fkCla__4AB81AF0" FromRole="PesticidesInfo" ToRole="ToxicityClassWHO" />
+          <NavigationProperty Name="PesticideType" Relationship="Self.FK__Pesticide__fkPes__44FF419A" FromRole="PesticidesInfo" ToRole="PesticideType" />
+          <NavigationProperty Name="ToxicityOnFish" Relationship="Self.FK__Pesticide__fkTox__47DBAE45" FromRole="PesticidesInfo" ToRole="ToxicityOnFish" />
+          <NavigationProperty Name="ToxicityOnBee" Relationship="Self.FK__Pesticide__fkTox__48CFD27E" FromRole="PesticidesInfo" ToRole="ToxicityOnBees" />
+          <NavigationProperty Name="ToxicityOnBird" Relationship="Self.FK__Pesticide__fkTox__49C3F6B7" FromRole="PesticidesInfo" ToRole="ToxicityOnBirds" />
+        </EntityType>
+        <EntityType Name="PesticideType">
+          <Key>
+            <PropertyRef Name="PesticideTypePk" />
+          </Key>
+          <Property Name="PesticideTypePk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PesticideTypeAR" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PesticidesInfoes" Relationship="Self.FK__Pesticide__fkPes__44FF419A" FromRole="PesticideType" ToRole="PesticidesInfo" />
+        </EntityType>
+        <EntityType Name="ToxicityClassWHO">
+          <Key>
+            <PropertyRef Name="ClassWHOPK" />
+          </Key>
+          <Property Name="ClassWHOPK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassWHO" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="PesticidesInfoes" Relationship="Self.FK__Pesticide__fkCla__4AB81AF0" FromRole="ToxicityClassWHO" ToRole="PesticidesInfo" />
+        </EntityType>
+        <EntityType Name="ToxicityOnBee">
+          <Key>
+            <PropertyRef Name="ToxicityBeePk" />
+          </Key>
+          <Property Name="ToxicityBeePk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ToxicityAr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PesticidesInfoes" Relationship="Self.FK__Pesticide__fkTox__48CFD27E" FromRole="ToxicityOnBees" ToRole="PesticidesInfo" />
+        </EntityType>
+        <EntityType Name="ToxicityOnBird">
+          <Key>
+            <PropertyRef Name="ToxicityBirdPk" />
+          </Key>
+          <Property Name="ToxicityBirdPk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ToxicityAr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PesticidesInfoes" Relationship="Self.FK__Pesticide__fkTox__49C3F6B7" FromRole="ToxicityOnBirds" ToRole="PesticidesInfo" />
+        </EntityType>
+        <EntityType Name="ToxicityOnFish">
+          <Key>
+            <PropertyRef Name="ToxicityFishPk" />
+          </Key>
+          <Property Name="ToxicityFishPk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ToxicityAr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PesticidesInfoes" Relationship="Self.FK__Pesticide__fkTox__47DBAE45" FromRole="ToxicityOnFish" ToRole="PesticidesInfo" />
+        </EntityType>
+        <Association Name="FK__Pesticide__fkAct__45F365D3">
+          <End Role="ActiveIngredient" Type="Self.ActiveIngredient" Multiplicity="0..1" />
+          <End Role="PesticidesInfo" Type="Self.PesticidesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActiveIngredient">
+              <PropertyRef Name="ActiveIngredientPk" />
+            </Principal>
+            <Dependent Role="PesticidesInfo">
+              <PropertyRef Name="fkActiveIngredient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pesticide__fkCro__4BAC3F29">
+          <End Role="Crop" Type="Self.Crop" Multiplicity="0..1" />
+          <End Role="PesticidesInfo" Type="Self.PesticidesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Crop">
+              <PropertyRef Name="CropPk" />
+            </Principal>
+            <Dependent Role="PesticidesInfo">
+              <PropertyRef Name="fkCrop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pesticide__fkFor__46E78A0C">
+          <End Role="Formulation" Type="Self.Formulation" Multiplicity="0..1" />
+          <End Role="PesticidesInfo" Type="Self.PesticidesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formulation">
+              <PropertyRef Name="FormulationPk" />
+            </Principal>
+            <Dependent Role="PesticidesInfo">
+              <PropertyRef Name="fkFormulation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pesticide__fkPes__4CA06362">
+          <End Role="Pest" Type="Self.Pest" Multiplicity="0..1" />
+          <End Role="PesticidesInfo" Type="Self.PesticidesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pest">
+              <PropertyRef Name="PestPk" />
+            </Principal>
+            <Dependent Role="PesticidesInfo">
+              <PropertyRef Name="fkPest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pesticide__fkCla__4AB81AF0">
+          <End Role="ToxicityClassWHO" Type="Self.ToxicityClassWHO" Multiplicity="0..1" />
+          <End Role="PesticidesInfo" Type="Self.PesticidesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToxicityClassWHO">
+              <PropertyRef Name="ClassWHOPK" />
+            </Principal>
+            <Dependent Role="PesticidesInfo">
+              <PropertyRef Name="fkClassWHO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pesticide__fkPes__44FF419A">
+          <End Role="PesticideType" Type="Self.PesticideType" Multiplicity="0..1" />
+          <End Role="PesticidesInfo" Type="Self.PesticidesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PesticideType">
+              <PropertyRef Name="PesticideTypePk" />
+            </Principal>
+            <Dependent Role="PesticidesInfo">
+              <PropertyRef Name="fkPesticideType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pesticide__fkTox__47DBAE45">
+          <End Role="ToxicityOnFish" Type="Self.ToxicityOnFish" Multiplicity="0..1" />
+          <End Role="PesticidesInfo" Type="Self.PesticidesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToxicityOnFish">
+              <PropertyRef Name="ToxicityFishPk" />
+            </Principal>
+            <Dependent Role="PesticidesInfo">
+              <PropertyRef Name="fkToxicityFish" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pesticide__fkTox__48CFD27E">
+          <End Role="ToxicityOnBees" Type="Self.ToxicityOnBee" Multiplicity="0..1" />
+          <End Role="PesticidesInfo" Type="Self.PesticidesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToxicityOnBees">
+              <PropertyRef Name="ToxicityBeePk" />
+            </Principal>
+            <Dependent Role="PesticidesInfo">
+              <PropertyRef Name="fkToxicityBees" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pesticide__fkTox__49C3F6B7">
+          <End Role="ToxicityOnBirds" Type="Self.ToxicityOnBird" Multiplicity="0..1" />
+          <End Role="PesticidesInfo" Type="Self.PesticidesInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToxicityOnBirds">
+              <PropertyRef Name="ToxicityBirdPk" />
+            </Principal>
+            <Dependent Role="PesticidesInfo">
+              <PropertyRef Name="fkToxicityBirds" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PesticidesDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ActiveIngredients" EntityType="Self.ActiveIngredient" />
+          <EntitySet Name="Crops" EntityType="Self.Crop" />
+          <EntitySet Name="Formulations" EntityType="Self.Formulation" />
+          <EntitySet Name="Pests" EntityType="Self.Pest" />
+          <EntitySet Name="PesticidesInfoes" EntityType="Self.PesticidesInfo" />
+          <EntitySet Name="PesticideTypes" EntityType="Self.PesticideType" />
+          <EntitySet Name="ToxicityClassWHOes" EntityType="Self.ToxicityClassWHO" />
+          <EntitySet Name="ToxicityOnBees" EntityType="Self.ToxicityOnBee" />
+          <EntitySet Name="ToxicityOnBirds" EntityType="Self.ToxicityOnBird" />
+          <EntitySet Name="ToxicityOnFish" EntityType="Self.ToxicityOnFish" />
+          <AssociationSet Name="FK__Pesticide__fkAct__45F365D3" Association="Self.FK__Pesticide__fkAct__45F365D3">
+            <End Role="ActiveIngredient" EntitySet="ActiveIngredients" />
+            <End Role="PesticidesInfo" EntitySet="PesticidesInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pesticide__fkCro__4BAC3F29" Association="Self.FK__Pesticide__fkCro__4BAC3F29">
+            <End Role="Crop" EntitySet="Crops" />
+            <End Role="PesticidesInfo" EntitySet="PesticidesInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pesticide__fkFor__46E78A0C" Association="Self.FK__Pesticide__fkFor__46E78A0C">
+            <End Role="Formulation" EntitySet="Formulations" />
+            <End Role="PesticidesInfo" EntitySet="PesticidesInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pesticide__fkPes__4CA06362" Association="Self.FK__Pesticide__fkPes__4CA06362">
+            <End Role="Pest" EntitySet="Pests" />
+            <End Role="PesticidesInfo" EntitySet="PesticidesInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pesticide__fkCla__4AB81AF0" Association="Self.FK__Pesticide__fkCla__4AB81AF0">
+            <End Role="ToxicityClassWHO" EntitySet="ToxicityClassWHOes" />
+            <End Role="PesticidesInfo" EntitySet="PesticidesInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pesticide__fkPes__44FF419A" Association="Self.FK__Pesticide__fkPes__44FF419A">
+            <End Role="PesticideType" EntitySet="PesticideTypes" />
+            <End Role="PesticidesInfo" EntitySet="PesticidesInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pesticide__fkTox__47DBAE45" Association="Self.FK__Pesticide__fkTox__47DBAE45">
+            <End Role="ToxicityOnFish" EntitySet="ToxicityOnFish" />
+            <End Role="PesticidesInfo" EntitySet="PesticidesInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pesticide__fkTox__48CFD27E" Association="Self.FK__Pesticide__fkTox__48CFD27E">
+            <End Role="ToxicityOnBees" EntitySet="ToxicityOnBees" />
+            <End Role="PesticidesInfo" EntitySet="PesticidesInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pesticide__fkTox__49C3F6B7" Association="Self.FK__Pesticide__fkTox__49C3F6B7">
+            <End Role="ToxicityOnBirds" EntitySet="ToxicityOnBirds" />
+            <End Role="PesticidesInfo" EntitySet="PesticidesInfoes" />
+          </AssociationSet>
+          <FunctionImport Name="SearchPesticides" ReturnType="Collection(PesticidesDBModel.SearchPesticides_Result)">
+            <Parameter Name="PesticideType" Mode="In" Type="Int32" />
+            <Parameter Name="ActiveIngredient" Mode="In" Type="Int32" />
+            <Parameter Name="Crop" Mode="In" Type="Int32" />
+            <Parameter Name="Pest" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="SearchPesticides_Result">
+          <Property Type="String" Name="PesticideTypeAR" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IngredientAr" Nullable="true" />
+          <Property Type="String" Name="IngredientEn" Nullable="true" />
+          <Property Type="String" Name="FormulationDescAr" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ToxicityAr" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ToxicityAr1" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ToxicityAr2" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ClassWHO" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="ModeOfAction" Nullable="true" />
+          <Property Type="String" Name="CropNameAr" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PestNameAr" Nullable="true" />
+          <Property Type="String" Name="RatePerLiters" Nullable="true" />
+          <Property Type="String" Name="RatePerHectar" Nullable="true" />
+          <Property Type="Int32" Name="PreharvestInterval" Nullable="true" />
+          <Property Type="String" Name="ModeOfUse" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PesticidesDBModelStoreContainer" CdmEntityContainer="PesticidesDBEntities">
+          <EntitySetMapping Name="ActiveIngredients">
+            <EntityTypeMapping TypeName="PesticidesDBModel.ActiveIngredient">
+              <MappingFragment StoreEntitySet="ActiveIngredient">
+                <ScalarProperty Name="ActiveIngredientPk" ColumnName="ActiveIngredientPk" />
+                <ScalarProperty Name="IngredientAr" ColumnName="IngredientAr" />
+                <ScalarProperty Name="IngredientEn" ColumnName="IngredientEn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Crops">
+            <EntityTypeMapping TypeName="PesticidesDBModel.Crop">
+              <MappingFragment StoreEntitySet="Crop">
+                <ScalarProperty Name="CropPk" ColumnName="CropPk" />
+                <ScalarProperty Name="CropNameAr" ColumnName="CropNameAr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Formulations">
+            <EntityTypeMapping TypeName="PesticidesDBModel.Formulation">
+              <MappingFragment StoreEntitySet="Formulation">
+                <ScalarProperty Name="FormulationPk" ColumnName="FormulationPk" />
+                <ScalarProperty Name="FormulationDescAr" ColumnName="FormulationDescAr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pests">
+            <EntityTypeMapping TypeName="PesticidesDBModel.Pest">
+              <MappingFragment StoreEntitySet="Pest">
+                <ScalarProperty Name="PestPk" ColumnName="PestPk" />
+                <ScalarProperty Name="PestNameAr" ColumnName="PestNameAr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PesticidesInfoes">
+            <EntityTypeMapping TypeName="PesticidesDBModel.PesticidesInfo">
+              <MappingFragment StoreEntitySet="PesticidesInfo">
+                <ScalarProperty Name="PesticidesInfoPk" ColumnName="PesticidesInfoPk" />
+                <ScalarProperty Name="fkPesticideType" ColumnName="fkPesticideType" />
+                <ScalarProperty Name="fkActiveIngredient" ColumnName="fkActiveIngredient" />
+                <ScalarProperty Name="fkFormulation" ColumnName="fkFormulation" />
+                <ScalarProperty Name="fkToxicityFish" ColumnName="fkToxicityFish" />
+                <ScalarProperty Name="fkToxicityBees" ColumnName="fkToxicityBees" />
+                <ScalarProperty Name="fkToxicityBirds" ColumnName="fkToxicityBirds" />
+                <ScalarProperty Name="fkClassWHO" ColumnName="fkClassWHO" />
+                <ScalarProperty Name="ModeOfAction" ColumnName="ModeOfAction" />
+                <ScalarProperty Name="fkCrop" ColumnName="fkCrop" />
+                <ScalarProperty Name="fkPest" ColumnName="fkPest" />
+                <ScalarProperty Name="RatePerLiters" ColumnName="RatePerLiters" />
+                <ScalarProperty Name="RatePerHectar" ColumnName="RatePerHectar" />
+                <ScalarProperty Name="PreharvestInterval" ColumnName="PreharvestInterval" />
+                <ScalarProperty Name="ModeOfUse" ColumnName="ModeOfUse" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PesticideTypes">
+            <EntityTypeMapping TypeName="PesticidesDBModel.PesticideType">
+              <MappingFragment StoreEntitySet="PesticideType">
+                <ScalarProperty Name="PesticideTypePk" ColumnName="PesticideTypePk" />
+                <ScalarProperty Name="PesticideTypeAR" ColumnName="PesticideTypeAR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ToxicityClassWHOes">
+            <EntityTypeMapping TypeName="PesticidesDBModel.ToxicityClassWHO">
+              <MappingFragment StoreEntitySet="ToxicityClassWHO">
+                <ScalarProperty Name="ClassWHOPK" ColumnName="ClassWHOPK" />
+                <ScalarProperty Name="ClassWHO" ColumnName="ClassWHO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ToxicityOnBees">
+            <EntityTypeMapping TypeName="PesticidesDBModel.ToxicityOnBee">
+              <MappingFragment StoreEntitySet="ToxicityOnBees">
+                <ScalarProperty Name="ToxicityBeePk" ColumnName="ToxicityBeePk" />
+                <ScalarProperty Name="ToxicityAr" ColumnName="ToxicityAr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ToxicityOnBirds">
+            <EntityTypeMapping TypeName="PesticidesDBModel.ToxicityOnBird">
+              <MappingFragment StoreEntitySet="ToxicityOnBirds">
+                <ScalarProperty Name="ToxicityBirdPk" ColumnName="ToxicityBirdPk" />
+                <ScalarProperty Name="ToxicityAr" ColumnName="ToxicityAr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ToxicityOnFish">
+            <EntityTypeMapping TypeName="PesticidesDBModel.ToxicityOnFish">
+              <MappingFragment StoreEntitySet="ToxicityOnFish">
+                <ScalarProperty Name="ToxicityFishPk" ColumnName="ToxicityFishPk" />
+                <ScalarProperty Name="ToxicityAr" ColumnName="ToxicityAr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SearchPesticides" FunctionName="PesticidesDBModel.Store.SearchPesticides">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PesticidesDBModel.SearchPesticides_Result">
+                <ScalarProperty Name="PesticideTypeAR" ColumnName="PesticideTypeAR" />
+                <ScalarProperty Name="IngredientAr" ColumnName="IngredientAr" />
+                <ScalarProperty Name="IngredientEn" ColumnName="IngredientEn" />
+                <ScalarProperty Name="FormulationDescAr" ColumnName="FormulationDescAr" />
+                <ScalarProperty Name="ToxicityAr" ColumnName="ToxicityAr" />
+                <ScalarProperty Name="ToxicityAr1" ColumnName="ToxicityAr1" />
+                <ScalarProperty Name="ToxicityAr2" ColumnName="ToxicityAr2" />
+                <ScalarProperty Name="ClassWHO" ColumnName="ClassWHO" />
+                <ScalarProperty Name="ModeOfAction" ColumnName="ModeOfAction" />
+                <ScalarProperty Name="CropNameAr" ColumnName="CropNameAr" />
+                <ScalarProperty Name="PestNameAr" ColumnName="PestNameAr" />
+                <ScalarProperty Name="RatePerLiters" ColumnName="RatePerLiters" />
+                <ScalarProperty Name="RatePerHectar" ColumnName="RatePerHectar" />
+                <ScalarProperty Name="PreharvestInterval" ColumnName="PreharvestInterval" />
+                <ScalarProperty Name="ModeOfUse" ColumnName="ModeOfUse" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

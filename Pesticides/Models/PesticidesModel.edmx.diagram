@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0d8a23d4215d4c92b7d91f1b6e4affe9" Name="Diagram1">
+        <EntityTypeShape EntityType="PesticidesDBModel.ActiveIngredient" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="PesticidesDBModel.Crop" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PesticidesDBModel.Formulation" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PesticidesDBModel.Pest" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="PesticidesDBModel.PesticidesInfo" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PesticidesDBModel.PesticideType" Width="1.5" PointX="0.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PesticidesDBModel.ToxicityClassWHO" Width="1.5" PointX="0.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PesticidesDBModel.ToxicityOnBee" Width="1.5" PointX="0.75" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="PesticidesDBModel.ToxicityOnBird" Width="1.5" PointX="0.75" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PesticidesDBModel.ToxicityOnFish" Width="1.5" PointX="0.75" PointY="22.75" IsExpanded="true" />
+        <AssociationConnector Association="PesticidesDBModel.FK__Pesticide__fkAct__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="PesticidesDBModel.FK__Pesticide__fkCro__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="PesticidesDBModel.FK__Pesticide__fkFor__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="PesticidesDBModel.FK__Pesticide__fkPes__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="PesticidesDBModel.FK__Pesticide__fkCla__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="PesticidesDBModel.FK__Pesticide__fkPes__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="PesticidesDBModel.FK__Pesticide__fkTox__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="PesticidesDBModel.FK__Pesticide__fkTox__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="PesticidesDBModel.FK__Pesticide__fkTox__49C3F6B7" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

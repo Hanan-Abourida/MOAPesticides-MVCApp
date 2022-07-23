@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدمة البحث في الأدوية الزراعية</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+<link href="~/Content/Chosen/chosen.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="dateHeader" style="
+   background: linear-gradient(145deg, #2E8B57 53%, #126537 62%) !important;
+    height: auto;">
+        <img src="~/Content/images/lebanon-republic-ar.png" style="padding-right: 100px;padding-left: 50px;" />
+        <label style="color:white">
+            @{
+                var today = DateTime.Now.ToString("dddd, dd MMMM yyyy", new System.Globalization.CultureInfo("ar-LB"));
+            }
+            @today
+        </label>
+
+    </div>
+
+    <div class="logoHeader" style="
+    height: auto;
+    background-color: white;">
+        <a href="http://www.agriculture.gov.lb"> <img src="~/Content/images/ministry-logo.jpg" style="padding-right: 100px;" /></a>
+        <img src="~/Content/Images/flag.PNG" style="float:left;" />
+    </div>
+    <div class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header" style="float: right;">
+                @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                            </button>*@
+                @Html.ActionLink("خدمة البحث في الأدوية الزراعية", "Index", "Home", new { area = "" }, new { @class = "application-title" })
+
+            </div>
+            <div class="navbar-collapse collapse">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("قاعدة البيانات", "EditMainData", "Home")</li>
+                        @*<li>@Html.ActionLink("About", "About", "Home")</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                    </ul>
+                }
+                <ul class="nav navbar-nav" style="float: left;">
+                    <li>@Html.ActionLink("الصفحة الرئيسية", "VisitMOASite", "Account", new { target = "_blank" })</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        @Html.Partial("_LoginPartial")
+        <br/>
+        <footer>
+            @*<p> الجمهورية اللبنانية وزارة الزراعة - تنفيذ دائرة التوثيق والمعلوماتية &copy; @DateTime.Now.Year </p>*@
+
+            <p> تنفيذ دائرة التوثيق والمعلوماتية - وزارة الزراعة الجمهورية اللبنانية &copy; 2020 </p>
+        </footer>
+    </div>
+
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/bundles/lib")
+    <script src="/Scripts/chosen.jquery.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
